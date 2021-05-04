@@ -19,9 +19,11 @@ void setup() {
     pinMode(KEY1, OUTPUT);
     pinMode(KEY2, OUTPUT);
     pinMode(KEY3, OUTPUT);
-    pinMode(DOT, OUTPUT);
-    pinMode(GEN, OUTPUT);
+    pinMode(DOT, OUTPUT); 
     #if (BOARD_TYPE < 4)
+        pinMode(GEN, OUTPUT);
+        // включаем ШИМ
+        setPWM(GEN, DUTY);
     #else
         pinMode(KEY4, OUTPUT);
         pinMode(KEY5, OUTPUT);
@@ -44,8 +46,7 @@ void setup() {
     // задаем частоту ШИМ на 9 и 10 выводах 31 кГц
     TCCR1B = TCCR1B & 0b11111000 | 1;    // ставим делитель 1
 
-    // включаем ШИМ
-    setPWM(GEN, DUTY);
+    
 
     // перенастраиваем частоту ШИМ на пинах 3 и 11 на 7.8 кГц и разрешаем прерывания COMPA
     TCCR2B = (TCCR2B & B11111000) | 2;    // делитель 8
